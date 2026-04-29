@@ -1,4 +1,5 @@
 # Maintainer: InTeaReable <leyn.the.cat@gmail.com>
+# Contributor: Luis Martinez <luis dot martinez at disroot dot org>
 
 pkgname=nyado-git
 pkgver=0.0.0.r0.g0000000
@@ -21,12 +22,14 @@ pkgver() {
 prepare() {
   cd "$srcdir/nyado"
   export CARGO_TARGET_DIR="$srcdir/target"
-  cargo fetch --locked
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd "$srcdir/nyado"
   export CARGO_TARGET_DIR="$srcdir/target"
+  export RUSTUP_TOOLCHAIN=stable
   cargo build --frozen --release --all-features
 }
 

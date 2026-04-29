@@ -1,5 +1,6 @@
 # Maintainer: InTeaReable <leyn.the.cat@gmail.com>
 # Contributor: Alexey Neverov <leyn.the.cat@gmail.com>
+# Contributor: Luis Martinez <luis dot martinez at disroot dot org>
 
 pkgname=nyado-bin
 pkgver=0.2.5
@@ -11,16 +12,12 @@ license=('MIT')
 provides=("nyado")
 conflicts=("nyado")
 options=(!strip)
-
-if [[ "$CARCH" == "x86_64" ]]; then
-    source=("https://github.com/LeynTheCat/nyado/releases/download/v$pkgver/nyado-x86_64-unknown-linux-musl")
-    sha256sums=('PLACEHOLDER_X86_64')
-elif [[ "$CARCH" == "aarch64" ]]; then
-    source=("https://github.com/LeynTheCat/nyado/releases/download/v$pkgver/nyado-aarch64-unknown-linux-musl")
-    sha256sums=('PLACEHOLDER_AARCH64')
-fi
+source_x86_64=("https://github.com/LeynTheCat/nyado/releases/download/v$pkgver/nyado-x86_64-unknown-linux-musl")
+sha256sums_x86_64=('PLACEHOLDER_X86_64')
+source_aarch64=("https://github.com/LeynTheCat/nyado/releases/download/v$pkgver/nyado-aarch64-unknown-linux-musl")
+sha256sums_aarch64=('PLACEHOLDER_AARCH64')
 
 package() {
     cd "$srcdir"
-    install -Dm755 "${source##*/}" "$pkgdir/usr/bin/nyado"
+    install -Dm755 "nyado-$CARCH-unknown-linux-musl" "$pkgdir/usr/bin/nyado"
 }

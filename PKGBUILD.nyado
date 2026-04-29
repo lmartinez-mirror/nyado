@@ -10,20 +10,20 @@ url="https://github.com/LeynTheCat/nyado"
 license=('MIT')
 depends=('libgcc')
 makedepends=('cargo')
-provides=("nyado")
-conflicts=("nyado-bin" "nyado-git")
 source=("$pkgname-$pkgver.tar.gz::https://github.com/LeynTheCat/nyado/archive/v$pkgver.tar.gz")
 sha256sums=('PLACEHOLDER')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
   export CARGO_TARGET_DIR="$srcdir/target"
-  cargo fetch --locked
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   export CARGO_TARGET_DIR="$srcdir/target"
+  export RUSTUP_TOOLCHAIN=stable
   cargo build --frozen --release --all-features
 }
 
